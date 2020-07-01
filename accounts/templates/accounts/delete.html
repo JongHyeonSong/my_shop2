@@ -1,0 +1,23 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
+
+            <p> 정말 "{{item}}"을 지우시겠습니까?</p>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <a href="{% url 'home' %}" class="btn btn-info">취소하기</a>
+                <input type="submit" name="Confirm Delete" class="btn btn-danger">
+            </form>
+            
+         
+        </div>
+    </div>
+</div>
+
+{% endblock %}

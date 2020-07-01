@@ -1,0 +1,68 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>고객 사항:</h5>
+            <hr>
+            <a href="" class="btn btn-outline-primary btn-block">수정하기</a>
+            <a href="{% url 'create_order' customer.id %}" class="btn btn-outline-warning btn-block">다량주문</a>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>고객 연락처:</h5>
+            <hr>
+            <p> 이메일: {{customer.email}} </p>
+            <p> 휴대폰 번호: {{customer.phone}}</p>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>총 주문량:</h5>
+            <hr>
+            <h1 style="text-align: center; padding:10px ;"> {{total_count}}EA </h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <form method="GET">
+                <button class="btn btn-primary" type="submit">검색</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>제품명</th>
+                    <th>카테고리</th>
+                    <th>주문날짜</th>
+                    <th>주문상태</th>
+                    <th>수정하기</th>
+                    <th>삭제하기</th>
+                </tr>
+                {% for order in orders %}
+                <tr>
+                    <td>{{order.product}}</td>
+                    <td>{{order.product.category}}</td>
+                    <td>{{order.date_created}}</td>
+                    <td>{{order.status}}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">수정하기</td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">삭제하기</td>
+                </tr>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

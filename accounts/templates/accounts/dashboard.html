@@ -1,0 +1,58 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+{% include 'accounts/status.html'%}
+<br>
+
+<div class="row">
+    <div class="col-md-5">
+        <h5>고객정보: </h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">고객 등록</a>
+        </div>
+        <table class="table table-sm">
+            <tr>
+                <th>총 {{total_customers}}명</th>
+                <th>고객 성함</th>
+                <th>휴대폰 번호</th>
+            </tr>
+            {% for customer in customers %}
+            <tr>
+                <td><a href="{% url 'customer' customer.id %}" class="btn btn-sm btn-primary">View</a></td>
+                <td>{{customer.name}}</td>
+                <td>{{customer.phone}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-7">
+        <h5>주문 현황: </h5>
+        <hr>
+        <div class="card card-body">
+            {#<a class="btn btn-primary btn-sm btn-block" href="{% url 'create_order' %}">주문하기</a> #}
+        </div>
+        <table class="table table-sm">
+            <tr>
+                <th>제품명</th>
+                <th>주문날짜</th>
+                <th>배송상태</th>
+                <th>수정하기</th>
+                <th>삭제하기</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>{{order.product}}</td>
+                <td>{{order.date_created}}</td>
+                <td>{{order.status}}</td>
+                <td><a href="{% url 'update_order' order.id %}" class="btn btn-sm btn-info">수정하기</a></td>
+                <td><a href="{% url 'delete_order' order.id %}" class="btn btn-sm btn-danger">삭제하기</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
