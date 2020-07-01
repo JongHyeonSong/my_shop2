@@ -36,16 +36,16 @@ class Products(models.Model):
     
 class Order(models.Model):
     STATUS =(
-        ('Pending', 'Pending'),
-        ('Out for delivery', 'Out for delivery'),
-        ('Delivered', 'Delivered'),
+        ('보류중', '보류중'),
+        ('출고완료', '출고완료'),
+        ('배송완료', '배송완료'),
     )
     
     customer= models.ForeignKey(Customer,on_delete=models.CASCADE, null=True)
     product=models.ForeignKey(Products,on_delete=models.CASCADE, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
-    note = models.CharField(max_length=1000,null=True)
+    note = models.CharField(max_length=1000,null=True,blank=True)
 
     def __str__(self):
         return self.product.name

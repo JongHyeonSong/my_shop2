@@ -3,6 +3,9 @@
 {% block content %}
 
 {% include 'accounts/status.html' %}
+<div>
+    <a href="{% url 'create_order' request.user.customer.id %}" class="btn btn-sm btn-info">제품주문</a>
+</div>
 <div class="row">
     <div class="col-md">
         <div class="card card-body">
@@ -26,7 +29,7 @@
                 </tr>
                 {% endfor %}
 
-            </div>
+            </table>
         </div>
     </div>
 </div>

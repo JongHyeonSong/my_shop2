@@ -26,13 +26,13 @@ def registerPage(request):
             
             username = form.cleaned_data.get('username') # dic타입으로 입력한 4자료가 모두 날아옴
            
-            group = Group.objects.get(name='customer') #회원가입으로 오는사람들을 다 customer에 일단 넣는방법 #id=2, name=customer인 로우가 나온다
-            user.groups.add(group)
+            # group = Group.objects.get(name='customer') #회원가입으로 오는사람들을 다 customer에 일단 넣는방법 #id=2, name=customer인 로우가 나온다
+            # user.groups.add(group)
             
-            Customer.objects.create(
-                user=user, 
-                name=username,
-                )
+            # Customer.objects.create(
+            #     user=user, 
+            #     name=username,
+            #     )
            
             messages.success(request, username+'님의 회원가입이 완료되었습니다')
             return redirect('login')
@@ -59,7 +59,6 @@ def loginPage(request):
     context={}
     return render(request, 'accounts/login.html', context)
 
-
 def logoutUser(request):
     logout(request)
     return redirect('login')
@@ -75,8 +74,8 @@ def home(request):
     total_customers = customers.count()
     
     total_orders= orders.count()
-    delivered = orders.filter(status='Delivered').count()
-    pending = orders.filter(status='Pending').count()
+    delivered = orders.filter(status='배송완료').count()
+    pending = orders.filter(status='보류중').count()
     
     context={
         'orders':orders,
@@ -94,11 +93,13 @@ def home(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def userPage(request):
+    a = Group.objects.get(name='customer')
+  
     orders = request.user.customer.order_set.all()
     
     total_orders= orders.count()
-    delivered = orders.filter(status='Delivered').count()
-    pending = orders.filter(status='Pending').count()
+    delivered = orders.filter(status='배송완료').count()
+    pending = orders.filter(status='보류중').count()
     
     context={
         'orders':orders,
@@ -119,7 +120,6 @@ def accountSettings(request):
     if request.method=="POST":
         form = CustomerForm(request.POST, request.FILES, instance=customer)
         if form.is_valid():
-            print("타당 in views")
             form.save()
             return redirect('/')
             
@@ -133,7 +133,6 @@ def accountSettings(request):
 @allowed_users(allowed_roles=['admin'])
 def products(request):
     products = Products.objects.all()
-    
     
     context={
         'products':products,
@@ -164,7 +163,7 @@ def customer(request,pk):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['admin','customer'])
 def createOrder(request, pk):
     OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'),extra=10)
     customer = Customer.objects.get(id=pk)

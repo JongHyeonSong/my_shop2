@@ -1,5 +1,11 @@
 {% load static %}
 
+<style>
+    .footer-link{
+        margin-right:20px;
+    }
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +19,21 @@
 <body>
     {% include 'accounts/navbar.html' %}
     <hr>
-    {% block content %}{% endblock %}
-
+    {% block content %}
+    {% endblock %}
     <hr>
-    <h5>Our footer</h5>
-
+    <div class="row">
+        <div class="col">
+            <div class="card card-body">
+            <ul>
+                <a href="" class="footer-link">회사소개</a>
+                <a href="" class="footer-link">이용약관</a>
+                <a href="" class="footer-link">개인정보처리방침</a>
+                <a href="" class="footer-link">고객센터</a>
+            </ul>
+            </div>
+        </div>
+    </div>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
