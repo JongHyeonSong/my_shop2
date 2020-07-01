@@ -1,0 +1,33 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+
+{% include 'accounts/status.html' %}
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>제품명</th>
+                    <th>주의사항</th>
+                    <th>주문날짜</th>
+                    <th>주문상태</th>
+                    <th>수정하기</th>
+                    <th>삭제하기</th>
+                </tr>
+                {% for order in orders %}
+                <tr>
+                    <td>{{order.product}}</td>
+                    <td>{{order.note}}</td>
+                    <td>{{order.date_created}}</td>
+                    <td>{{order.status}}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">수정하기</td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">삭제하기</td>
+                </tr>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

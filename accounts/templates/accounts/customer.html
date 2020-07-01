@@ -31,7 +31,9 @@
     <div class="col-md">
         <div class="card card-body">
             <form method="GET">
+                {{myFilter.form.as_p}}
                 <button class="btn btn-primary" type="submit">검색</button>
+               
             </form>
         </div>
     </div>
@@ -43,7 +45,7 @@
             <table class="table table-sm">
                 <tr>
                     <th>제품명</th>
-                    <th>카테고리</th>
+                    <th>주의사항</th>
                     <th>주문날짜</th>
                     <th>주문상태</th>
                     <th>수정하기</th>
@@ -52,7 +54,7 @@
                 {% for order in orders %}
                 <tr>
                     <td>{{order.product}}</td>
-                    <td>{{order.product.category}}</td>
+                    <td>{{order.note}}</td>
                     <td>{{order.date_created}}</td>
                     <td>{{order.status}}</td>
                     <td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">수정하기</td>

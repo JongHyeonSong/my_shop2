@@ -1,9 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, null=True)
     phone =models.CharField(max_length=200, null=True)
     email=models.CharField(max_length=200, null=True)
+    profile_pic = models.ImageField(null=True, blank=True, default="가젤.jpg")
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     
     def __str__(self):
@@ -37,11 +41,11 @@ class Order(models.Model):
         ('Delivered', 'Delivered'),
     )
     
-    
     customer= models.ForeignKey(Customer,on_delete=models.CASCADE, null=True)
     product=models.ForeignKey(Products,on_delete=models.CASCADE, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
+    note = models.CharField(max_length=1000,null=True)
 
     def __str__(self):
         return self.product.name
