@@ -14,6 +14,7 @@ class CustomerForm(ModelForm):
             'email': '이메일',
              'profile_pic': '프로필사진',
         }
+        
 class OrderForm(ModelForm):
     class Meta:
         model = Order

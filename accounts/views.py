@@ -17,22 +17,12 @@ from .decorators import unauthenticated_user,allowed_users ,admin_only
 def registerPage(request):
     form = CreateUserForm()
     
-    a=group = Group.objects.get(name='customer')
-    print(a)
     if request.method=="POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             
             username = form.cleaned_data.get('username') # dic타입으로 입력한 4자료가 모두 날아옴
-           
-            # group = Group.objects.get(name='customer') #회원가입으로 오는사람들을 다 customer에 일단 넣는방법 #id=2, name=customer인 로우가 나온다
-            # user.groups.add(group)
-            
-            # Customer.objects.create(
-            #     user=user, 
-            #     name=username,
-            #     )
            
             messages.success(request, username+'님의 회원가입이 완료되었습니다')
             return redirect('login')
@@ -157,7 +147,7 @@ def customer(request,pk):
         'customer':customer,
          'orders':orders,
           'total_count':total_count,
-             'myFilter':myFilter,
+        'myFilter':myFilter,
     }
     return render(request, 'accounts/customer.html',context)
 
@@ -165,7 +155,7 @@ def customer(request,pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin','customer'])
 def createOrder(request, pk):
-    OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'),extra=10)
+    OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'),extra=5)
     customer = Customer.objects.get(id=pk)
     
     formset=OrderFormSet(queryset=Order.objects.none(), instance=customer)
@@ -175,10 +165,8 @@ def createOrder(request, pk):
         if formset.is_valid():
             formset.save()
             return redirect('/')
-    
     context={
       'formset':formset,
-      
     }
     return render(request, 'accounts/order_form.html', context)
 

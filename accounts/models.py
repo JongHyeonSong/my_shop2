@@ -21,8 +21,8 @@ class Tag(models.Model):
     
 class Products(models.Model):
     CATEGORY=(
-        ('Indoor', 'Indoor'),
-        ('Outdoor', 'Outdoor'),
+        ('강아지', '강아지'),
+        ('고양이', '고양이'),
     )
     name=models.CharField(max_length=200, null=True)
     price= models.FloatField(null=True)
@@ -40,7 +40,6 @@ class Order(models.Model):
         ('출고완료', '출고완료'),
         ('배송완료', '배송완료'),
     )
-    
     customer= models.ForeignKey(Customer,on_delete=models.CASCADE, null=True)
     product=models.ForeignKey(Products,on_delete=models.CASCADE, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
