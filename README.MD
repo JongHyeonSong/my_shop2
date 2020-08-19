@@ -1,7 +1,8 @@
 # 강아지, 고양이 반려용품 판매 사이트 제작 (http://34.64.204.254:8002)   
 
-(관리자id/password -> admin/whdgus)
-<img width="439" alt="대시보드" src="readMeImg/admin/dashboard.png">
+(관리자id/password -> admin/whdgus)   
+
+<img width="100%" alt="대시보드" src="readMeImg/admin/dashboard.png">
 
 > myshop 웹페이지는 반려견, 반려용품 판매 사이트 입니다  
 관리자 레벨에서는 실시간으로 고객의 주문을 대시보드에서 관리/수정/삭제 할수있고  
@@ -18,15 +19,15 @@
 > 총 4가지 모델을 만들었으며 1:1/1:다/다:다 관계를 장고 ORM으로 구현하였습니다  
   - Customer 모델의 user를 장고에서 기본제공하는 User모델과 1:1관계를 맺어 장고에서 제공하는 login/logout 세션관리를 이용해 개발기간을 단축시켰습니다  
 
-  <img width="800" alt="고객모델" src="readMeImg/model/customer.png">
+  <img width="100%" alt="고객모델" src="readMeImg/model/customer.png">
 
   - 하나의 제품은 여러가지 태그를 가질수 있고 또 하나의 태그 또한 여러가지 제품군을 가지고 있을수 있습니다. ManyToMany필드를 통해 마이그레이션 하게되면 각각의 pk를 로우의 값으로 하는 테이블이 자동으로 생성됩니다
-  <img width="800" alt="다대다관계" src="readMeImg/model/product-tag.png">
+  <img width="100%" alt="다대다관계" src="readMeImg/model/product-tag.png">
   
   
 # 판매중인 아이템 CRUD 하기
-  <img width="800" alt="order폼" src="readMeImg/form/order.png">
-  <img width="800" alt="update뷰" src="readMeImg/view/update.png">  
+  <img width="100%" alt="order폼" src="readMeImg/form/order.png">
+  <img width="100%" alt="update뷰" src="readMeImg/view/update.png">  
 
   넷중에 상대적으로 어려운 기존의 값을 바꾸는 update뷰 입니다  
   주문 모델로 간단하게 form을 만드는 강력한 기능을 제공해주어서 템플릿단에서  
@@ -38,23 +39,23 @@
   
 장고에서는 **login_required** 라는 데코레이터로 로그인 User테이블에 있는 사람으로 로그인 되어있지 않다면 자동으로 특정 url로 보낼수있는 데코레이터를 제공합니다  
 비슷한 원리로 자기만의 decorator역시 만들수 있습니다
-<img width="800" alt="데코레이터" src="readMeImg/decorator/unauthenticated.png">  
+<img width="100%" alt="데코레이터" src="readMeImg/decorator/unauthenticated.png">  
 장고 user는 지금이 게스트상태인지 login상태인지를 알려주는 'is_authenticated' 인자를 가지고 있으므로 분기처리를 하여 이미 로그인된 사람은 redirect 함수로 다른곳으로 보내고 그 이외의 경우에는 본래 함수를 실행하게 합니다
-<img width="800" alt="로그인뷰" src="readMeImg/view/login.png">  
+<img width="100%" alt="로그인뷰" src="readMeImg/view/login.png">  
 다음과같이 login페이지에 login 되어있는 유저가 접근하려고하면 decorator함수로 인해서 바로 'home'으로 렌더링되게 됩니다  
-<img width="800" alt="지저분한로그인뷰" src="readMeImg/view/login_1.png">  
+<img width="100%" alt="지저분한로그인뷰" src="readMeImg/view/login_1.png">  
 위와 같이 데코레이터를 사용하지 않고 해당 로직을 views에서 처리할 수도 있지만 분기문 때문에 코드가 쓸데없이 지저분해지고 또 재사용하기가 번거롭게 됩니다
 
 
 # 장고 signal을 사용해 이벤트 자동 처리하기
 장고 signal이란 어떤 특정한 일을 수행할 때마다 signal이 발생하여 그 때에 지정한 동작을 수행할 수 있게 하는 신호(signal)를 발생하는 기능을 가지고 있습니다. User모델의 save()함수를 감지하는 post_save를 사용했습니다
 
-<img width="800" alt="시그널" src="readMeImg/signals/customer_profile.png">   
+<img width="100%" alt="시그널" src="readMeImg/signals/customer_profile.png">   
 장고 signal은 sender와 receiver로 구성됩니다 이번 프로젝트에서는 sender를 장고의 User모델로 지정해서 특정 행동인 user에서 save()함수를 발생시킬때마다 receiver인 customer_profile 함수가 실행되도록 하였습니다.  
 여기서는 3개의 인자를 받았는데 sender는 User이고 instance는 저장된 객체를 가리킵니다 created는 새로 생성되었을때 참값을 가집니다.  
 
 제 쇼핑몰에서 User의 save()함수는 회원가입창에서 발생합니다
-<img width="800" alt="회원가입" src="readMeImg/view/register.png">  
+<img width="100%" alt="회원가입" src="readMeImg/view/register.png">  
 form.save()함수가 실행된 후에(post) receiver인 customer_profile이 실행됩니다. 새로생성된 유저를 지정된 그룹에 넣고 1:1관계를 맺고있는 Customer 객체도 새로 생성해줍니다.
 
 # 부족했던부분
